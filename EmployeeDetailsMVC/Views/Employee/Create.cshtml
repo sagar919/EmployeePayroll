@@ -1,0 +1,90 @@
+﻿@model CommonLayer.Parent
+
+@{
+    ViewData["Title"] = "Create";
+   
+
+}
+
+<h1>Create</h1>
+
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddEmployee">
+            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" />
+                <label asp-for="Employee.Add()" class="control-label"></label>
+                <input asp-for="Employee.Name" class="form-control" />
+                <span asp-validation-for="Employee.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.ProfileImage" class="control-label"></label>
+                <input asp-for="Employee.ProfileImage" class="form-control" />
+                <span asp-validation-for="Employee.ProfileImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Gender" class="control-label"></label>
+                <input asp-for="Employee.Gender" class="form-control" />
+                <span asp-validation-for="Employee.Gender" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Employee.StartDate" class="control-label"></label>
+                <input asp-for="Employee.StartDate" class="form-control" />
+                <span asp-validation-for="Employee.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Salary" class="control-label"></label>
+                <input asp-for="Employee.Salary" class="form-control" />
+                <span asp-validation-for="Employee.Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Departments.department" class="control-label"></label>
+                @Html.BeginForm("Create", "EmployeeController")*@
+                <table>
+                    <tr>
+                        <td>
+                            @for (int i = 0; i < Parent.Departments.Count; i++)
+                            {
+                                @Html.CheckBoxFor(m => Model.Department.department[i].IsCheck)
+                                @Model.Department.department[i].Department;
+                                @Html.HiddenFor(m => Model.Department.department[i].Id)
+                                @Html.HiddenFor(m => Model.Department.department[i].Department)
+
+                            }
+
+
+                        </td>
+                    </tr>
+                </table>
+                <p> @ViewBag.selectDepartment</p>
+                @*<select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.DepList,"Id","Department"))">
+
+        </select>*@
+
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Description" class="control-label"></label>
+                <input asp-for="Employee.Description" class="form-control" />
+                <span asp-validation-for="Employee.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="EmployeeList" class=" btn btn-outline-success">Employee List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
