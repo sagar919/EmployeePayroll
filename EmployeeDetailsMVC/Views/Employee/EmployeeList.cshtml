@@ -12,7 +12,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Actions</th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -36,6 +36,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
+            <th>Actions</th>
 
         </tr>
     </thead>
@@ -43,11 +44,7 @@
      @foreach (var item in Model) 
 {
         <tr>
-            <td>
-                @Html.ActionLink("Edit", "Create", new { Id = item.Id, item.Name, item.ProfileImage, item.Gender, item.Salary, item.StartDate, item.Description, item.Department, }, new { @class = "btn btn-success" }) |
 
-                @Html.ActionLink("Delete", "DeleteEmp", new { item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Do you really want to delete this record?')" })
-            </td>
 
 
             <td>
@@ -74,9 +71,16 @@
                 @Html.DisplayFor(modelItem => item.Department)
             </td>
 
+            <td>
+                @Html.ActionLink("Edit", "Create", new { Id = item.Id, item.Name, item.ProfileImage, item.Gender, item.Salary, item.StartDate, item.Description, item.Department, }, new { @class = "btn btn-success" }) |
+
+                @Html.ActionLink("Delete", "DeleteEmployee", new { item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Do you really want to delete this record?')" })
+            </td>
+
 
 
         </tr>
+        
 }
     </tbody>
 </table>

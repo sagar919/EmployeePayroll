@@ -9,6 +9,8 @@ namespace RepositoryLayer.Interface
     {
         List<Employee> EmployeeList();
 
-        bool InsertEmployee(Employee employee);
+        bool InsertEmployee(Parent employee);
+
+        bool DeleteEmployee(Parent employee);
     }
 }

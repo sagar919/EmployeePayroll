@@ -27,14 +27,15 @@ namespace CommonLayer
         public int Salary { get; set; }
 
         [Required(ErrorMessage ="Required")]
+        [DataType(DataType.Date)]
         public DateTime  StartDate { get; set; }
 
 
         public string Description { get; set; }
 
-        
+
         public string Department { get; set; }
 
-        
+
     }
 }

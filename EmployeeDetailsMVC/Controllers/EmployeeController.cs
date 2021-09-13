@@ -26,14 +26,14 @@ namespace EmployeeDetailsMVC.Controllers
             var empList = this.employeeBL.EmployeeList();
             return View(empList);
         }
-        public IActionResult Create(Employee obj)
+        public IActionResult Create(Parent obj)
         {
-            loadDDL();
+            //loadDDL();
             return View(obj);
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(Employee employee)
+        public IActionResult AddEmployee(Parent employee)
         {
 
 
@@ -56,6 +56,29 @@ namespace EmployeeDetailsMVC.Controllers
             }
         }
 
+        public IActionResult DeleteEmployee(Parent employee)
+        {
+            try
+            {
+                bool deleteEmployee = this.employeeBL.DeleteEmployee(employee);
+                if (deleteEmployee == true)
+                {
+                    return RedirectToAction("EmployeeList");
+
+                }
+                else
+                {
+                    return RedirectToAction("EmployeeList", employee);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return RedirectToAction("EmployeeList");
+            }
+
+        }
+
         //public async Task<IActionResult> DeleteEmp(int id)
         //{
         //    try
@@ -75,38 +98,38 @@ namespace EmployeeDetailsMVC.Controllers
         //    }
         //}
 
-        public ActionResult loadDDL()
-        {
+        //public ActionResult loadDDL()
+        //{
             
 
-            List<Departments> depList = new List<Departments>();
-                depList.Add(new Departments() { Id = 1, Department = "Hr", IsCheck = false });
-                depList.Add(new Departments() { Id = 2, Department = "Finance", IsCheck = false });
-                depList.Add(new Departments() { Id = 3, Department = "Sales", IsCheck = false });
-                depList.Add(new Departments() { Id = 4, Department = "Others", IsCheck = false });
+        //    List<Departments> depList = new List<Departments>();
+        //        //depList.Add(new Departments() { Id = 1, Department = "Hr", IsCheck = false });
+        //        //depList.Add(new Departments() { Id = 2, Department = "Finance", IsCheck = false });
+        //        //depList.Add(new Departments() { Id = 3, Department = "Sales", IsCheck = false });
+        //        //depList.Add(new Departments() { Id = 4, Department = "Others", IsCheck = false });
 
 
 
-            Departments departments = new Departments();
-            departments.department = depList;
-            return View(departments);
+        //    Departments departments = new Departments();
+        //    departments.department = depList;
+        //    return View(departments);
 
-        }
+        //}
 
-        [HttpPost]
-        public ActionResult Create(Departments dp)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (var item in dp.department)
-            {
-                if (item.IsCheck)
-                {
-                    sb.Append(item.Department + ",");
-                }
-            }
-            ViewBag.selectDepartment = "selected departments are" + sb.ToString();
-            return View(dp);
-        }
+        //[HttpPost]
+        //public ActionResult Create(Departments dp)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    foreach (var item in dp.department)
+        //    {
+        //        if (item.IsCheck)
+        //        {
+        //            sb.Append(item.Department + ",");
+        //        }
+        //    }
+        //    ViewBag.selectDepartment = "selected departments are" + sb.ToString();
+        //    return View(dp);
+        //}
 
 
 

@@ -2,89 +2,209 @@
 
 @{
     ViewData["Title"] = "Create";
-   
+
+
 
 }
+<head>
+    <link href="C:\Users\slad\Downloads\vs\vs\EmployeeDetailsMVC\Css\Create.css" rel="stylesheet" />
+</head>
 
-<h1>Create</h1>
 
-<h4>Employee</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+<div class="title">
+
+    <div class=" emp-title">
+
+        <h1>Employee Payroll Form</h1>
+
+    </div>
+
+
+
+    <hr />
+
+
+    <div class="col-lg-12 form ">
         <form asp-action="AddEmployee">
-            
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
+            @*<div class="form-group-name">
+
+                    <input type="hidden" asp-for="Id" />
+                    <label asp-for="Name" class="control-label col-lg-4">
+                    </label>
+                    <input asp-for="Name" class="form-control col-lg-8" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>*@
+
+            <div class="form-group row">
                 <input type="hidden" asp-for="Id" />
-                <label asp-for="Employee.Add()" class="control-label"></label>
-                <input asp-for="Employee.Name" class="form-control" />
-                <span asp-validation-for="Employee.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Employee.ProfileImage" class="control-label"></label>
-                <input asp-for="Employee.ProfileImage" class="form-control" />
-                <span asp-validation-for="Employee.ProfileImage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Employee.Gender" class="control-label"></label>
-                <input asp-for="Employee.Gender" class="form-control" />
-                <span asp-validation-for="Employee.Gender" class="text-danger"></span>
+                <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="Name" class="form-control" id="staticName" value="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Employee.StartDate" class="control-label"></label>
-                <input asp-for="Employee.StartDate" class="form-control" />
-                <span asp-validation-for="Employee.StartDate" class="text-danger"></span>
+
+
+            <div class="form-group row">
+                <label asp-for="ProfileImage" class="col-sm-2 col-form-label">ProfileImage</label>
+                <div class="col-sm-10">
+                    @*<input asp-for="ProfileImage" class="form-control" id="staticEmail" value="email@example.com">*@
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+
+                        <img class="Profile-image-1 " src="data:image/jpeg;base64,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" />
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                        <label class="form-check-label" for="inlineRadio3">3</label>
+                    </div>
+
+
+
+
+
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Employee.Salary" class="control-label"></label>
-                <input asp-for="Employee.Salary" class="form-control" />
-                <span asp-validation-for="Employee.Salary" class="text-danger"></span>
+
+
+
+            <div class="form-group row">
+                <label asp-for="Gender" class="col-sm-2 col-form-label">Gender</label>
+                <div class="col-sm-10">
+                    <input asp-for="Gender" class="form-control" id="staticGender" value="Male/Female">
+                </div>
             </div>
+
+
+            @*<div class="form-group">
+                    <label asp-for="Gender" class="control-label"></label>
+                    <input asp-for="Gender" class="form-control" />
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>*@
+
+
+            <div class="form-group row">
+                <label asp-for="StartDate" class="col-sm-2 col-form-label">StartDate</label>
+                <div class="col-sm-10">
+                    <input asp-for="StartDate" class="form-control" id="staticDate">
+                </div>
+            </div>
+
+
+            @*<div class="form-group">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>*@
+
+            <div class="form-group row">
+                <label asp-for="Salary" class="col-sm-2 col-form-label">Salary</label>
+                <div class="col-sm-10">
+                    <input asp-for="Salary" class="form-control" id="staticSalary" value="Salary">
+                </div>
+            </div>
+
+
+            @*<div class="form-group">
+                    <label asp-for="Salary" class="control-label"></label>
+                    <input asp-for="Salary" class="form-control" />
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>*@
+
+
+            <div class="form-group row">
+                <label asp-for="Department" class="col-sm-2 col-form-label">Department</label>
+                <div class="col-sm-8 department-class">
+                    <div>
+                        <span> Hr </span>
+                        @Html.CheckBoxFor(m => Model.isHr, false)
+                    </div>
+                    <div>
+                        <span> Finance </span>
+                        @Html.CheckBoxFor(m => Model.isFinance, false)
+                    </div>
+                    <div>
+                        <span> Sales </span>
+                        @Html.CheckBoxFor(m => Model.isSales, false)
+                    </div>
+                    <div>
+                        <span> Others </span>
+                        @Html.CheckBoxFor(m => Model.isOthers, false)
+                    </div>
+
+
+                </div>
+            </div>
+
+
             <div class="form-group">
-                <label asp-for="Departments.department" class="control-label"></label>
-                @Html.BeginForm("Create", "EmployeeController")*@
-                <table>
+                @*<label asp-for="Department" class="control-label"></label>*@
+
+                @*<table>
                     <tr>
-                        <td>
-                            @for (int i = 0; i < Parent.Departments.Count; i++)
-                            {
-                                @Html.CheckBoxFor(m => Model.Department.department[i].IsCheck)
-                                @Model.Department.department[i].Department;
-                                @Html.HiddenFor(m => Model.Department.department[i].Id)
-                                @Html.HiddenFor(m => Model.Department.department[i].Department)
+                        <td>*@
 
-                            }
+                <!--<span> Hr </span>
 
-
-                        </td>
-                    </tr>
-                </table>
-                <p> @ViewBag.selectDepartment</p>
+                @Html.CheckBoxFor(m => Model.isHr, false)
+                <span> Finance </span>
+                @Html.CheckBoxFor(m => Model.isFinance, false)
+                <span> Sales </span>
+                @Html.CheckBoxFor(m => Model.isSales, false)
+                <span> Others </span>
+                @Html.CheckBoxFor(m => Model.isOthers, false)-->
+                @*</td>
+                    </tr>*@
+                @*</table>*@
+                @*<p> @ViewBag.selectDepartment</p>*@
                 @*<select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.DepList,"Id","Department"))">
 
-        </select>*@
+                    </select>*@
 
+
+                <div class="form-group row">
+                    <label asp-for="Description" class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Description" class="form-control" id="staticEmail" value="Description">
+                    </div>
+                </div>
 
             </div>
-            <div class="form-group">
-                <label asp-for="Employee.Description" class="control-label"></label>
-                <input asp-for="Employee.Description" class="form-control" />
-                <span asp-validation-for="Employee.Description" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>*@
 
-            <div class="form-group">
+            <div class="form-group button">
                 <input type="submit" value="Save" class="btn btn-primary" />
                 <a asp-action="EmployeeList" class=" btn btn-outline-success">Employee List</a>
             </div>
         </form>
+
+
+
     </div>
+
+
 </div>
+
 
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+

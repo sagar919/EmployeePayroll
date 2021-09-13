@@ -13,12 +13,17 @@ namespace RepositoryLayer.Services
 
     public class EmployeeRL : IEmployeeRL
     {
+
         string connectionString = @"Data Source=IN-J20N0F3;Initial Catalog=EmployeePayrollDB;Integrated Security=True";
-        public Parent EmployeeList()
+
+       
+
+        public List<Employee> EmployeeList() 
         {
+            List<Employee> employees = new List<Employee>();
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             try
-            {
+            { 
                 SqlCommand command = new SqlCommand("spShowEmployees", sqlConnection);
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -27,7 +32,7 @@ namespace RepositoryLayer.Services
 
                 SqlDataReader dataReader = command.ExecuteReader();
                 //List<Employee> employeeDetails = new List<Employee>();
-                Parent parent = new Parent();
+                /*Parent parent = new Parent()*/;
                 
                 while (dataReader.Read())
                 {
@@ -40,27 +45,21 @@ namespace RepositoryLayer.Services
                         Salary = Convert.ToInt32(dataReader["Salary"]),
                         StartDate = Convert.ToDateTime(dataReader["StartDate"]),
                         Description = dataReader["Notes"].ToString(),
-                        //Department = dataReader["Department"].ToString()
-                       
+                        Department = dataReader["Department"].ToString()
+
                         //Department = (Departments)dataReader["Department"]
 
                     };
 
-                    Departments departments = new Departments();
-                    {
-                        departments.Id = Convert.ToInt32(dataReader["Id"]);
-                        departments.Department = dataReader["Department"].ToString();
-                        departments.IsCheck = Convert.ToBoolean(dataReader["IsCheck"]);
 
-                    };
-
-                    parent.Employee.Add(employee);
-                    parent.Departments.Add(departments);
+                    employees.Add(employee);
+                    //parent.Employee.Add(employee);
+                    //parent.Departments.Add(departments);
 
 
                 }
                 sqlConnection.Close();
-                return parent;
+                return employees;
             }
 
                 
@@ -77,12 +76,31 @@ namespace RepositoryLayer.Services
             
         }
 
-        public bool InsertEmployee(Employee employee)
+        public bool InsertEmployee(Parent employee)
         {
             
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             try
             {
+                string DepartmentList = string.Empty;
+                if (employee.isHr == true)
+                {
+                    DepartmentList = DepartmentList + "Hr,";
+                }
+                 if (employee.isFinance == true)
+                {
+                    DepartmentList = DepartmentList + "Finance,";
+                }
+                 if (employee.isSales == true)
+                {
+                    DepartmentList = DepartmentList + "Sales,";
+                }
+                 if (employee.isOthers == true)
+                {
+                    DepartmentList = DepartmentList + "Others";
+                }
+
+
                 SqlCommand command = new SqlCommand("spInsertEmployee", sqlConnection);
 
                 command.CommandType = CommandType.StoredProcedure;
@@ -93,8 +111,9 @@ namespace RepositoryLayer.Services
                 command.Parameters.AddWithValue("Gender", employee.Gender);               
                 command.Parameters.AddWithValue("Salary", employee.Salary);               
                 command.Parameters.AddWithValue("StartDate", employee.StartDate);   
-                command.Parameters.AddWithValue("departList", employee.Department);
-                command.Parameters.AddWithValue("Notes", employee.Description);
+                
+                command.Parameters.AddWithValue("Note", employee.Description);
+                command.Parameters.AddWithValue("departList", DepartmentList);
 
 
 
@@ -114,6 +133,38 @@ namespace RepositoryLayer.Services
             {
                 Console.WriteLine(ex.Message);
                 return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+
+        public bool DeleteEmployee(Parent employee)
+        {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            try
+            {
+               
+                SqlCommand command = new SqlCommand("spDeleteEmployeeById", sqlConnection);
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("Id", employee.Id);
+                sqlConnection.Open();
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
             finally
             {

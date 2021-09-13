@@ -14,6 +14,20 @@ namespace BusinessLayer.Services
         {
             this._employeeRL = employeeRL;
         }
+
+        public bool DeleteEmployee(Parent employee)
+        {
+            try
+            {
+                return this._employeeRL.DeleteEmployee(employee);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
         public List<Employee> EmployeeList()
         {
             try
@@ -26,7 +40,7 @@ namespace BusinessLayer.Services
             }
         }
 
-        public bool InsertEmployee(Employee employee )
+        public bool InsertEmployee(Parent employee )
         {
             try
             {

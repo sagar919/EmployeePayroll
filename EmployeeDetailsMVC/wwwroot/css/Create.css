@@ -1,0 +1,43 @@
+﻿body {
+    background-color: white;
+}
+
+/*.title {
+    top: 133px;
+    left: 397px;
+    width: 1126px;
+    height: 911px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #F5F5F5;
+    border-radius: 8px;
+    opacity: 1;
+    
+}
+*/
+
+.form {
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #F5F5F5;
+    border-radius: 8px;
+    opacity: 1;
+    padding:20px;
+}
+
+.Profile-image-1 {
+    height: 40px;
+    width: 40px;
+    border-radius:50px;
+
+}
+
+.department-class{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+
+.button{
+width:100%;
+margin-left: 400px;
+}
