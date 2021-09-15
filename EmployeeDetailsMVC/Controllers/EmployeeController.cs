@@ -9,10 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using CommonLayer;
 using BusinessLayer.Interface;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeDetailsMVC.Controllers
 {
-
+    [Authorize]
     public class EmployeeController : Controller
     {
         private IEmployeeBL employeeBL;

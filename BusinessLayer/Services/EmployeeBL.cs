@@ -52,5 +52,29 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
+
+        public string RegisterUser(UserDetails user)
+        {
+            try
+            {
+                return this._employeeRL.RegisterUser(user);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public string ValidateLogin(UserDetails user)
+        {
+            try
+            {
+                return this._employeeRL.ValidateLogin(user);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

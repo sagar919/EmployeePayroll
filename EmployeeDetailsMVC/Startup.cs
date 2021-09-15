@@ -1,9 +1,12 @@
 using BusinessLayer.Interface;
 using BusinessLayer.Services;
 using EmployeeDetailsMVC.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,13 +30,29 @@ namespace EmployeeDetailsMVC
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IEmployeeBL,EmployeeBL>();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.  
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                option => option.LoginPath = "/Login/UserLogin/");
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSingleton<IEmployeeBL, EmployeeBL>();
             services.AddSingleton<IEmployeeRL, EmployeeRL>();
             services.AddControllersWithViews();
-            //services.AddDbContext<EmployeeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppCon")));
+            //services.AddMvc(options => options.EnableEndpointRouting = false);
         }
+
+        //services.AddDbContext<EmployeeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppCon")));
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,16 +69,22 @@ namespace EmployeeDetailsMVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Employee}/{action=EmployeeList}/{id?}");
+                    pattern: "{controller=Login}/{action=UserLogin}/{id?}");
             });
         }
     }

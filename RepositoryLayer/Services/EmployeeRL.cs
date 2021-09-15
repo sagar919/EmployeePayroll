@@ -24,7 +24,7 @@ namespace RepositoryLayer.Services
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             try
             { 
-                SqlCommand command = new SqlCommand("spShowEmployees", sqlConnection);
+                SqlCommand command = new SqlCommand("spNewShowEmployee", sqlConnection);
                 command.CommandType = CommandType.StoredProcedure;
 
 
@@ -169,6 +169,49 @@ namespace RepositoryLayer.Services
             finally
             {
                 sqlConnection.Close();
+            }
+        }
+
+
+
+
+      
+        public string RegisterUser(UserDetails user)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spRegisterUser", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", user.LastName);
+                cmd.Parameters.AddWithValue("@Email", user.Email);
+                cmd.Parameters.AddWithValue("@Password", user.Password);
+
+                con.Open();
+                string result = cmd.ExecuteScalar().ToString();
+                con.Close();
+
+                return result;
+            }
+        }
+
+      
+        public string ValidateLogin(UserDetails user)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spValidateUserLogin", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Email", user.Email);
+                cmd.Parameters.AddWithValue("@Password", user.Password);
+
+                con.Open();
+                string result = cmd.ExecuteScalar().ToString();
+                con.Close();
+
+                return result;
             }
         }
     }

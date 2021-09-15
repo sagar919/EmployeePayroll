@@ -20,8 +20,4 @@
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Css\" />
-  </ItemGroup>
-
 </Project>
