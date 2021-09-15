@@ -35,7 +35,7 @@
                 <input type="hidden" asp-for="Id" />
                 <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input asp-for="Name" class="form-control" id="staticName" value="Name">
+                    <input asp-for="Name" class="form-control" id="staticName" placeholder="Name">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
             </div>
@@ -98,7 +98,7 @@
             <div class="form-group row">
                 <label asp-for="Gender" class="col-sm-2 col-form-label">Gender</label>
                 <div class="col-sm-10">
-                    <input asp-for="Gender" class="form-control" id="staticGender" value="Male/Female">
+                    <input asp-for="Gender" class="form-control" id="staticGender" placeholder="Male/Female">
                 </div>
             </div>
 
@@ -109,7 +109,7 @@
             <div class="form-group row">
                 <label asp-for="StartDate" class="col-sm-2 col-form-label">StartDate</label>
                 <div class="col-sm-10">
-                    <input asp-for="StartDate" class="form-control" id="staticDate">
+                    <input asp-for="StartDate" class="form-control" id="staticDate" placeholder="StartDate">
                 </div>
             </div>
 
@@ -119,7 +119,7 @@
             <div class="form-group row">
                 <label asp-for="Salary" class="col-sm-2 col-form-label">Salary</label>
                 <div class="col-sm-10">
-                    <input asp-for="Salary" class="form-control" id="staticSalary" value="Salary">
+                    <input asp-for="Salary" class="form-control" id="staticSalary" placeholder="Salary">
                 </div>
             </div>
 
@@ -130,19 +130,47 @@
             <div class="form-group row">
                 <label asp-for="Department" class="col-sm-2 col-form-label">Department</label>
                 <div class="col-sm-8 department-class">
-                    <div>
+                    <div class="Hr">
+                        <style>                        
+                        .Hr {
+                            background: #E9FEA5 0% 0% no-repeat padding-box;
+                            border-radius: 13px;
+                            opacity: 1;
+                        }
+                        </style>
                         <span> Hr </span>
                         @Html.CheckBoxFor(m => Model.isHr, false)
                     </div>
-                    <div>
+                    <div class="Finance">
+                        <style>
+                            .Finance {
+                                background: #E9FEA5 0% 0% no-repeat padding-box;
+                                border-radius: 13px;
+                                opacity: 1;
+                            }
+                        </style>
                         <span> Finance </span>
                         @Html.CheckBoxFor(m => Model.isFinance, false)
                     </div>
-                    <div>
+                    <div class="Sales">
+                        <style>
+                            .Sales {
+                                background: #E9FEA5 0% 0% no-repeat padding-box;
+                                border-radius: 13px;
+                                opacity: 1;
+                            }
+                        </style>
                         <span> Sales </span>
                         @Html.CheckBoxFor(m => Model.isSales, false)
                     </div>
-                    <div>
+                    <div class="isOthers">
+                        <style>
+                            .isOthers {
+                                background: #E9FEA5 0% 0% no-repeat padding-box;
+                                border-radius: 13px;
+                                opacity: 1;
+                            }
+                        </style>
                         <span> Others </span>
                         @Html.CheckBoxFor(m => Model.isOthers, false)
                     </div>
@@ -180,7 +208,7 @@
                 <div class="form-group row">
                     <label asp-for="Description" class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                        <input asp-for="Description" class="form-control" id="staticEmail" value="Description">
+                        <input asp-for="Description" class="form-control" id="staticEmail" placeholder="Description">
                     </div>
                 </div>
 
@@ -191,6 +219,8 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
                 <a asp-action="EmployeeList" class=" btn btn-outline-success">Employee List</a>
             </div>
+
+       
         </form>
 
 

@@ -35,6 +35,8 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Department)
+                
+                @*@Html.TextBox(“Name”, “”, new{style = “width:80px;height:20px;background-color:#F0F0F0 ;”})*@
             </th>
             <th>Actions</th>
 
@@ -68,12 +70,26 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
+
+
             <td>
-                @Html.DisplayFor(modelItem => item.Department)
+                @*@Html.DisplayFor(modelItem => item.Department)*@
+                <div class="dept">
+                    <style>
+                        .dept {
+                            background: #E9FEA5 0% 0% no-repeat padding-box;
+                            border-radius: 13px;
+                            opacity: 1;
+                        }
+                    </style>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </div>
+                
             </td>
 
             <td>
                 @Html.ActionLink("Edit", "Create", new { Id = item.Id, item.Name, item.ProfileImage, item.Gender, item.Salary, item.StartDate, item.Description, item.Department, }, new { @class = "btn btn-success" }) |
+
 
                 @Html.ActionLink("Delete", "DeleteEmployee", new { item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Do you really want to delete this record?')" })
             </td>

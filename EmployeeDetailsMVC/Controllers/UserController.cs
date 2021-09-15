@@ -20,5 +20,7 @@ namespace CookieAuthDemo.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("UserLogin", "Login");
         }
+
+
     }
 }
