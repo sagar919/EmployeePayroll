@@ -63,7 +63,7 @@ namespace EmployeeDetailsMVC
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -80,6 +80,7 @@ namespace EmployeeDetailsMVC
             //        template: "{controller=Home}/{action=Index}/{id?}");
             //});
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -87,5 +88,6 @@ namespace EmployeeDetailsMVC
                     pattern: "{controller=Login}/{action=UserLogin}/{id?}");
             });
         }
+
     }
 }

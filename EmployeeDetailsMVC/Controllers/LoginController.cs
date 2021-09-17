@@ -83,5 +83,49 @@ namespace CookieAuthDemo.Controllers
                 return View();
 
         }
+
+
+        [HttpGet]
+        public IActionResult UserLoginNew()
+        {
+
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserLoginNew([Bind] UserDetails user)
+        {
+            ModelState.Remove("FirstName");
+            ModelState.Remove("LastName");
+
+            if (ModelState.IsValid)
+            {
+                string LoginStatus = objUser.ValidateLoginUser(user);
+
+                if (LoginStatus == "Success")
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.Email)
+                    };
+                    ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
+                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+
+                    await HttpContext.SignInAsync(principal);
+                    return RedirectToAction("EmployeeListNew", "Employee");
+                }
+                else
+                {
+                    TempData["UserLoginFailed"] = "Login Failed.Please enter correct credentials";
+                    return View();
+                }
+            }
+            else
+                return View();
+
+        }
+
     }
 }

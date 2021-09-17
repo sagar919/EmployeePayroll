@@ -80,6 +80,12 @@ namespace EmployeeDetailsMVC.Controllers
 
         }
 
+        public IActionResult EmployeeListNew()
+        {
+            var empList = this.employeeBL.EmployeeListNew();
+            return View(empList);
+        }
+
         //public async Task<IActionResult> DeleteEmp(int id)
         //{
         //    try
@@ -101,7 +107,7 @@ namespace EmployeeDetailsMVC.Controllers
 
         //public ActionResult loadDDL()
         //{
-            
+
 
         //    List<Departments> depList = new List<Departments>();
         //        //depList.Add(new Departments() { Id = 1, Department = "Hr", IsCheck = false });

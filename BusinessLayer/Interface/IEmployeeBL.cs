@@ -11,5 +11,8 @@ namespace BusinessLayer.Interface
         bool InsertEmployee(Parent employee);
 
         bool DeleteEmployee(Parent employee);
+
+        List<Employee> EmployeeListNew();
+
     }
 }

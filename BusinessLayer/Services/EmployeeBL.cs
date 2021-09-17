@@ -76,5 +76,17 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
+
+        public List<Employee> EmployeeListNew()
+        {
+            try
+            {
+                return this._employeeRL.EmployeeListNew();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

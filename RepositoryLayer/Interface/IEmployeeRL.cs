@@ -16,6 +16,8 @@ namespace RepositoryLayer.Interface
         string RegisterUser(UserDetails user);
 
         string ValidateLogin(UserDetails user);
+
+        List<Employee> EmployeeListNew();
     }
 }
 

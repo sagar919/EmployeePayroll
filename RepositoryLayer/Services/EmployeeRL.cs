@@ -201,6 +201,25 @@ namespace RepositoryLayer.Services
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+                SqlCommand cmd = new SqlCommand("spValidateAdminLogin", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Email", user.Email);
+                cmd.Parameters.AddWithValue("@Password", user.Password);
+
+                con.Open();
+                string result = cmd.ExecuteScalar().ToString();
+                con.Close();
+
+                return result;
+            }
+        }
+
+
+        public string ValidateLoginUser(UserDetails user)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
                 SqlCommand cmd = new SqlCommand("spValidateUserLogin", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -214,5 +233,69 @@ namespace RepositoryLayer.Services
                 return result;
             }
         }
+
+
+        public List<Employee> EmployeeListNew()
+        {
+            List<Employee> employees = new List<Employee>();
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            try
+            {
+                SqlCommand command = new SqlCommand("spNewShowEmployee", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+
+
+                sqlConnection.Open();
+
+                SqlDataReader dataReader = command.ExecuteReader();
+                //List<Employee> employeeDetails = new List<Employee>();
+                /// Parent parent = new Parent() /
+ 
+                 ;
+
+                while (dataReader.Read())
+                {
+                    Employee employee = new Employee()
+                    {
+                        Id = Convert.ToInt32(dataReader["Id"]),
+                        Name = dataReader["Name"].ToString(),
+                        ProfileImage = dataReader["ProfileImage"].ToString(),
+                        Gender = dataReader["Gender"].ToString(),
+                        Salary = Convert.ToInt32(dataReader["Salary"]),
+                        StartDate = Convert.ToDateTime(dataReader["StartDate"]),
+                        Description = dataReader["Notes"].ToString(),
+                        Department = dataReader["Department"].ToString()
+
+                        //Department = (Departments)dataReader["Department"]
+
+                    };
+
+
+                    employees.Add(employee);
+                    //parent.Employee.Add(employee);
+                    //parent.Departments.Add(departments);
+
+
+                }
+                sqlConnection.Close();
+                return employees;
+            }
+
+
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Message={ex.Message} and stack trace-{ex.StackTrace}");
+                return null;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+
+
+
+
     }
-}
+    }
+
